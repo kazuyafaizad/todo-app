@@ -26,6 +26,11 @@ ons-splitter-side[side="left"][animation="overlay"] {
   color: #666
 }
 
+.bg-primary{
+  background-color: #3f51b5!important;
+  color:#ccc;
+}
+
 
 
 /********************

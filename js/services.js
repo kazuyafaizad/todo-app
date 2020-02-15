@@ -132,7 +132,7 @@ myApp.services = {
       myApp.services.categories.bindOnCheckboxChange(categoryItem);
 
       // Attach the new category to the corresponding list.
-      document.querySelector('#custom-category-list').appendChild(categoryItem);
+      // document.querySelector('#custom-category-list').appendChild(categoryItem);
     },
 
     // On task creation/update, updates the category list adding new categories if needed.
@@ -283,5 +283,24 @@ myApp.services = {
   //NEW USER
   user:{
     name:"",
+  },
+  dialog:{
+    add:function(text,type){
+      kelas = ( type == "bot") ? "bg-primary" : "";
+      pos = (type == "bot") ? "left" : "right";
+
+      dialog = ons.createElement(
+        '<ons-list-item>' +
+        '<ons-card class="'+kelas+" "+pos+'">'+
+        text+
+        '</ons-card>'+
+        '</ons-list-item>'
+      );
+      this.chat.push(dialog)
+           // Insert urgent tasks at the top and non urgent tasks at the bottom.
+           var answer = document.querySelector('#answer-list');
+           answer.append(dialog);
+    },
+    chat:[]
   }
 };

@@ -30,6 +30,17 @@ myApp.controllers = {
       element.show && element.show(); // Fix ons-fab in Safari.
     });
 
+    var dialog = document.getElementById('my-dialog');
+
+    if (dialog) {
+      dialog.show();
+    } else {
+      ons.createElement('dialog.html', { append: true })
+        .then(function(dialog) {
+          dialog.show();
+        });
+    }
+
     // Change tabbar animation depending on platform.
     page.querySelector('#myTabbar').setAttribute('animation', ons.platform.isAndroid() ? 'slide' : 'none');
   },
@@ -44,6 +55,16 @@ myApp.controllers = {
 
     // Change splitter animation depending on platform.
     document.querySelector('#mySplitter').left.setAttribute('animation', ons.platform.isAndroid() ? 'overlay' : 'reveal');
+
+    Array.prototype.forEach.call(page.querySelectorAll('[component="button/new-name"]'), function(element) {
+      element.onclick = function() {
+        document.querySelector('#myNavigator').pushPage('html/enter-name.html');
+      };
+
+      element.show && element.show(); // Fix ons-fab in Safari.
+    });
+
+   
   },
 
   ////////////////////////////
@@ -160,15 +181,17 @@ myApp.controllers = {
   ////////////////////////////
   chatbotPage: function(page) {
     // Set button functionality to save a new task.
+    message = "ごきげんよう, "+myApp.services.user.name
+    myApp.services.dialog.add(message,"bot");
+
     Array.prototype.forEach.call(page.querySelectorAll('[component="button/activate-voice"]'), function(element) {
       element.onclick = function() {
-       
-        console.log("nama awak adalah "+myApp.services.user.name)
-
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if ('SpeechRecognition' in window) {
           // speech recognition API supported
-          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+         
           const recorder = new SpeechRecognition();
+          
           recorder.onstart = function(){
             console.log("suara diaktifkan,bole start ckp dah");
           }
@@ -179,14 +202,27 @@ myApp.controllers = {
             const transcript = event.results[current][0].transcript;
             document.querySelector('#text-input').value = transcript
             botVoice(transcript)
+            
           }
         } else {
           // speech recognition API not supported
           ons.notification.alert("no voice recognition")
+          //show input
           
         }
 
       
+      };
+    });
+
+    Array.prototype.forEach.call(page.querySelectorAll('[component="button/send"]'), function(element) {
+      element.onclick = function() {
+        var question = page.querySelector('#text-input').value;
+        myApp.services.dialog.add(question,"");
+        page.querySelector('#text-input').value = "";
+        botResponse = response(question)
+        myApp.services.dialog.add(botResponse,"bot");
+
       };
     });
   },

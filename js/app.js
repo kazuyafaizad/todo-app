@@ -22,16 +22,40 @@ document.addEventListener('init', function(event) {
       });
     }
   }
+
+  
 });
 
+
+
 function botVoice(message){
+  
   const speech = new SpeechSynthesisUtterance();
-  speech.text = "Saya tak faham...cuba tulis Apa khabar"
-  if(message.includes("Apa khabar")){
-    speech.text = "saya baik...Syukur";
-  }
+  
+    speech.text = response(message);
+  
   speech.volume = 1;
   speech.rate = 1;
   speech.pitch = 1;
   window.speechSynthesis.speak(speech)
+  document.querySelector('#answer-input').value = speech.text
+}
+
+
+var dialogConfirm = function(){
+        document.querySelector('#myNavigator').pushPage('html/enter-name.html');
+        hideDialog('my-dialog')
+}
+var hideDialog = function(id) {
+  document
+    .getElementById(id)
+    .hide();
+};
+
+function response(message){
+  var reply = "すみません、わかりません...「お元気ですか」と書いてみてください"; 
+  if(message.includes("お元気ですか")){
+    reply =  "私は元気です";
+  }
+  return reply;
 }

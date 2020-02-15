@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  
+  <link  rel="stylesheet" href="style.css">
 
   <script src="js/app.js"></script>
   <script src="js/services.js"></script>
@@ -43,12 +45,11 @@
             <ons-icon icon="ion-navicon, material:md-menu" size="32px, material:24px"></ons-icon>
           </ons-toolbar-button>
         </div>
-        <div class="center">ChatBot</div>
+        <div class="center">ChatBot & To Do</div>
         <div class="right">
           <!-- Toolbar-button  only visible for iOS/other. -->
           <ons-if platform="ios other">
-            <!-- <ons-toolbar-button component="button/new-task">New Task</ons-toolbar-button> -->
-            <ons-toolbar-button component="button/new-name">New Name</ons-toolbar-button>
+            <ons-toolbar-button component="button/new-task">New Task</ons-toolbar-button>
           </ons-if>
         </div>
       </ons-toolbar>
@@ -67,9 +68,25 @@
         <ons-tab page="html/completed_tasks.html" label="Completed">
         </ons-tab>
       </ons-tabbar>
+
+      <ons-dialog id="my-dialog">
+        <div style="text-align: center; padding: 10px;">
+          <p>
+           Wanna try chat bot?
+          </p>
+    
+          <p>
+             <ons-button onclick="dialogConfirm()">Want</ons-button>
+            <ons-button class="button-red" onclick="hideDialog('my-dialog')">Don't want</ons-button>
+          </p>
+        </div>
+      </ons-dialog>
     </ons-page>
   </template>
 
+  <template id="dialog.html">
+  
+  </template>
 </body>
 
 </html>
