@@ -286,12 +286,12 @@ myApp.services = {
   },
   dialog:{
     add:function(text,type){
-      kelas = ( type == "bot") ? "bg-primary" : "";
+      cls = ( type == "bot") ? "bg-primary" : "";
       pos = (type == "bot") ? "left" : "right";
 
       dialog = ons.createElement(
         '<ons-list-item>' +
-        '<ons-card class="'+kelas+" "+pos+'">'+
+        '<ons-card class="'+cls+" "+pos+'">'+
         text+
         '</ons-card>'+
         '</ons-list-item>'
@@ -300,6 +300,9 @@ myApp.services = {
            // Insert urgent tasks at the top and non urgent tasks at the bottom.
            var answer = document.querySelector('#answer-list');
            answer.append(dialog);
+    },
+    init:function(){
+
     },
     chat:[]
   }

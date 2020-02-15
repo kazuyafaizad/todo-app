@@ -22,14 +22,6 @@ myApp.controllers = {
       element.show && element.show(); // Fix ons-fab in Safari.
     });
 
-    Array.prototype.forEach.call(page.querySelectorAll('[component="button/new-name"]'), function(element) {
-      element.onclick = function() {
-        document.querySelector('#myNavigator').pushPage('html/enter-name.html');
-      };
-
-      element.show && element.show(); // Fix ons-fab in Safari.
-    });
-
     var dialog = document.getElementById('my-dialog');
 
     if (dialog) {
@@ -154,35 +146,15 @@ myApp.controllers = {
     };
   },
 
-  ////////////////////////////
-  // New User Page Controller //
-  ////////////////////////////
-  newNamePage: function(page) {
-    // Set button functionality to save a new task.
-    Array.prototype.forEach.call(page.querySelectorAll('[component="button/save-name"]'), function(element) {
-      element.onclick = function() {
-        var newTitle = page.querySelector('#name-input').value;
-
-        if (newTitle) {
-          // If input title is not empty, create a new task.
-          myApp.services.user.name = newTitle
-          document.querySelector('#myNavigator').pushPage('html/chatbot.html');
-
-        } else {
-          // Show alert if the input title is empty.
-          ons.notification.alert('You must provide a name.');
-        }
-      };
-    });
-  },
-
   ///////////////////////////
   // Chatbot Page Controller //
   ////////////////////////////
   chatbotPage: function(page) {
     // Set button functionality to save a new task.
-    message = "ごきげんよう, "+myApp.services.user.name
+    message = "あなたの名前は？"    
     myApp.services.dialog.add(message,"bot");
+
+
 
     Array.prototype.forEach.call(page.querySelectorAll('[component="button/activate-voice"]'), function(element) {
       element.onclick = function() {
@@ -217,11 +189,24 @@ myApp.controllers = {
 
     Array.prototype.forEach.call(page.querySelectorAll('[component="button/send"]'), function(element) {
       element.onclick = function() {
+        
         var question = page.querySelector('#text-input').value;
-        myApp.services.dialog.add(question,"");
-        page.querySelector('#text-input').value = "";
-        botResponse = response(question)
-        myApp.services.dialog.add(botResponse,"bot");
+        if(question){
+          if(myApp.services.dialog.chat.length > 1){
+            myApp.services.dialog.add(question,"");
+            page.querySelector('#text-input').value = "";
+            botResponse = response(question)
+            myApp.services.dialog.add(botResponse,"bot");
+          }else{
+            myApp.services.user.name = question
+            myApp.services.dialog.add(question,"");
+            page.querySelector('#text-input').value = "";
+            message = "ごきげんよう, "+myApp.services.user.name
+            myApp.services.dialog.add(message,"bot");
+          }
+        }
+
+
 
       };
     });

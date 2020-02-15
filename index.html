@@ -4,15 +4,17 @@
   <meta charset="UTF-8">
   <title>Onsen UI Memo App 2.0</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
   
-  <link  rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 
   <script src="js/app.js"></script>
   <script src="js/services.js"></script>
   <script src="js/controllers.js"></script>
+  
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <link  rel="stylesheet" href="style.css">
+  
 
 </head>
 
@@ -42,7 +44,7 @@
         <div class="left">
           <!-- Toolbar-button with different icons depending on the platform. -->
           <ons-toolbar-button component="button/menu">
-            <ons-icon icon="ion-navicon, material:md-menu" size="32px, material:24px"></ons-icon>
+            <ons-icon icon="md-menu" size="24px"></ons-icon>
           </ons-toolbar-button>
         </div>
         <div class="center">ChatBot & To Do</div>
@@ -53,23 +55,30 @@
           </ons-if>
         </div>
       </ons-toolbar>
-
+      
       <!-- Floating Action Button only visible for Android. -->
       <ons-if platform="android">
         <ons-fab position="right bottom" component="button/new-task">
           <ons-icon icon="md-edit"></ons-icon>
         </ons-fab>
       </ons-if>
-
+      
       <!-- Auto-positioned Tabbar: top on Android, bottom on iOS/other. -->
       <ons-tabbar id="myTabbar" position="auto">
         <ons-tab page="html/pending_tasks.html" label="Pending" active>
         </ons-tab>
         <ons-tab page="html/completed_tasks.html" label="Completed">
         </ons-tab>
+        <ons-button onclick="dialogConfirm()"><ons-icon icon="ion-navicon, material:md-adb"></ons-icon></ons-button>
       </ons-tabbar>
 
-      <ons-dialog id="my-dialog">
+      
+      
+    </ons-page>
+  </template>
+
+  <template id="dialog.html">
+    <ons-dialog id="my-dialog">
         <div style="text-align: center; padding: 10px;">
           <p>
            Wanna try chat bot?
@@ -81,11 +90,6 @@
           </p>
         </div>
       </ons-dialog>
-    </ons-page>
-  </template>
-
-  <template id="dialog.html">
-  
   </template>
 </body>
 

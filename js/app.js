@@ -43,7 +43,7 @@ function botVoice(message){
 
 
 var dialogConfirm = function(){
-        document.querySelector('#myNavigator').pushPage('html/enter-name.html');
+        document.querySelector('#myNavigator').pushPage('html/chatbot.html');
         hideDialog('my-dialog')
 }
 var hideDialog = function(id) {
